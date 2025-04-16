@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback - LEGALIZE{% endblock %}
+
+{% block additional_head %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+  body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #d0eaff; /* light blue background */
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .textup {
+    text-align: center;
+    color: #0b4f6c; /* dark teal-blue */
+    font-weight: 700;
+  }
+
+  i {
+    margin-right: 3px;
+  }
+
+  .form-box {
+    background-color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.4); /* blue shadow */
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    max-width: 90%;
+    margin: 100px auto 40px auto;
+  }
+
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .radio-group {
+    display: flex;
+    margin-bottom: 16px;
+  }
+
+  input[type="radio"] {
+    margin-right: 8px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 17px;
+    color: #0b4f6c;
+    font-weight: 600;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #a8d0e6;
+  }
+
+  button {
+    background-color: #1d7dd8;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 15px;
+    transition: .2s linear;
+  }
+
+  button:hover {
+    background-color: #105d9b;
+    transform: translateY(-10px);
+  }
+
+  h1 {
+    color: #0b4f6c;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form-error {
+    color: #f44336;
+    font-size: 0.85rem;
+    margin-top: 5px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Give Your Feedback Here</h1>
+
+<div class="form-box">
+  <div class="textup">
+    <i class="fa fa-solid fa-clock"></i>
+    It only takes two minutes!!
+  </div>
+  <form method="POST" action="{{ url_for('feedback') }}">
+    {{ form.hidden_tag() }}
+    
+    <label for="name">
+      <i class="fa fa-solid fa-user"></i>
+      Name
+    </label>
+    <input type="text" id="name" name="name" value="{{ current_user.name }}" readonly>
+
+    <label for="email">
+      <i class="fa fa-solid fa-envelope"></i>
+      Email Address
+    </label>
+    <input type="email" id="email" name="email" value="{{ current_user.email }}" readonly>
+
+    <label for="phone">
+      <i class="fa-solid fa-phone"></i>
+      Phone No
+    </label>
+    <input type="tel" id="phone" name="phone" value="{{ current_user.mobile }}" readonly>
+
+    <label>
+      <i class="fa-solid fa-face-smile"></i>
+      Do you satisfy with our service?
+    </label>
+    <div class="radio-group">
+      {{ form.satisfied }}
+      {% if form.satisfied.errors %}
+        <div class="form-error">
+          {% for error in form.satisfied.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <label for="msg">
+      <i class="fa-solid fa-comments"></i>
+      Write your Suggestions:
+    </label>
+    {{ form.message(id="msg", rows="4", cols="10") }}
+    {% if form.message.errors %}
+      <div class="form-error">
+        {% for error in form.message.errors %}
+          {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <button type="submit">{{ form.submit.label.text }}</button>
+  </form>
+</div>
+{% endblock %}

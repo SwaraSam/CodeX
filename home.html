@@ -1,0 +1,441 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - LEGALIZER{% endblock %}
+
+{% block additional_head %}
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom right, #cce0ff, #e6f2ff);
+    color: #003366;
+  }
+
+  .navbar {
+    background-color: #004080;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar .logo {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .navbar .menu a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+  }
+
+  .navbar .menu a:hover {
+    text-decoration: underline;
+  }
+
+  .main-content {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .main-content img {
+    width: 100%;
+    max-width: 1000px;
+    height: 500px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+  }
+
+  .welcome-message {
+    font-size: 24px;
+    color: #004080;
+    margin-bottom: 20px;
+  }
+
+  .recent-documents {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 64, 128, 0.1);
+    max-width: 800px;
+    margin: 30px auto;
+  }
+
+  .recent-documents h3 {
+    color: #004080;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .document-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+  }
+
+  .document-list li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #e1e1e1;
+  }
+
+  .document-list li:last-child {
+    border-bottom: none;
+  }
+
+  .document-list a {
+    color: #0059b3;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .document-list a:hover {
+    text-decoration: underline;
+  }
+
+  .document-list .date {
+    font-size: 0.8em;
+    color: #666;
+    margin-left: 10px;
+  }
+  
+  .upload-button {
+    display: inline-block;
+    background-color: #0059b3;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  .upload-button:hover {
+    background-color: #004080;
+  }
+
+  .contact-section {
+    background-color: #e6f2ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-number, .mail-id, .social-links {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #002244;
+  }
+
+  .social-links a {
+    color: #0059b3;
+    text-decoration: none;
+  }
+
+  .social-links a:hover {
+    text-decoration: underline;
+  }
+
+  .about-section {
+    background-color: #e6f2ff;
+    padding: 30px 20px;
+    margin-top: 40px;
+    border-top: 2px solid #99c2ff;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  .about-section h2 {
+    color: #004080;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .about-section p {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #003366;
+  }
+
+  .footer {
+    background-color: #003366;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 10px;
+    margin-top: 40px;
+    width: 100%;
+  }
+  
+  /* Chatbot styles */
+  .chatbot-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 64, 128, 0.2);
+    max-width: 800px;
+    margin: 40px auto;
+    overflow: hidden;
+  }
+  
+  .chatbot-header {
+    background-color: #004080;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .chatbot-header h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .chat-messages {
+    height: 300px;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message {
+    margin-bottom: 10px;
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+  }
+  
+  .user-message {
+    align-self: flex-end;
+    background-color: #0059b3;
+    color: white;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .bot-message {
+    align-self: flex-start;
+    background-color: #e6f2ff;
+    color: #003366;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .resource-links {
+    margin-top: 8px;
+    font-size: 0.9em;
+  }
+  
+  .resource-links a {
+    color: #0059b3;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .resource-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #e1e1e1;
+  }
+  
+  .chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #99c2ff;
+    border-radius: 20px;
+    margin-right: 10px;
+  }
+  
+  .chat-input button {
+    background-color: #0059b3;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  
+  .chat-input button:hover {
+    background-color: #004080;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+  <img src="https://legaldesire.com/wp-content/uploads/2021/04/AdobeStock_205600667.jpeg" alt="Welcome Image" />
+  
+  <div class="welcome-message">
+    Welcome, {{ user.name }}!
+  </div>
+  
+  <p>Use our AI-powered tool to analyze and summarize your legal documents.</p>
+  
+  <a href="{{ url_for('upload') }}" class="upload-button">Upload a Document</a>
+  
+  <div class="recent-documents">
+    <h3>Your Recent Documents</h3>
+    {% if recent_docs %}
+    <ul class="document-list">
+      {% for doc in recent_docs %}
+      <li>
+        <a href="{{ url_for('document_result', doc_id=doc.id) }}">{{ doc.filename }}</a>
+        <span class="date">{{ doc.timestamp.strftime('%Y-%m-%d %H:%M') }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>You haven't uploaded any documents yet. <a href="{{ url_for('upload') }}">Upload your first document</a> to get started.</p>
+    {% endif %}
+  </div>
+  
+  <div class="contact-section">
+    <div class="contact-number">📞 Contact: +91-9876543210</div>
+    <div class="mail-id">📧 Mail ID: Legalizer@gmail.com</div>
+    <div class="social-links">
+      📸 Instagram: <a href="https://instagram.com/your_insta_id" target="_blank">@Legalizer</a>
+      <br>
+      <br>
+      💼 LinkedIn: <a href="https://linkedin.com/in/your_linkedin_id" target="_blank">Legalizer</a>
+    </div>
+  </div>
+
+  <div class="chatbot-container">
+    <div class="chatbot-header">
+      <h3>🤖 Legal Assistant Bot</h3>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot-message">
+        Hi {{ user.name }}! I'm your legal assistant. Ask me about legal topics like contracts, divorce, property, tax, etc.
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userMessage" placeholder="Type your legal question here..." />
+      <button id="sendMessage">Send</button>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <h2>About Us</h2>
+    <p>
+      Welcome to Legalizer, your trusted platform for understanding legal and official notices with ease.
+      <br><br>
+      We know how confusing and overwhelming government, court, or legal notices can be. Our mission is to bridge the gap between official language and public understanding. Whether it's a notice from a government agency, a lawyer, or the court, we break it down into clear, simple terms — so you know exactly what it means, what action (if any) you need to take, and by when.
+      <br><br>
+      Our team works closely with legal experts and professionals to ensure accuracy while keeping explanations user-friendly. From legal updates to personal case-related notices, we're here to keep you informed, aware, and stress-free.
+      <br><br>
+      Legalizer empowers individuals and businesses alike by turning complexity into clarity.
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  &copy; {{ now.year }} Legalizer. All rights reserved.
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Home page loaded');
+    
+    // Chatbot functionality
+    const chatMessages = document.getElementById('chatMessages');
+    const userMessage = document.getElementById('userMessage');
+    const sendButton = document.getElementById('sendMessage');
+    
+    // Function to add a message to the chat
+    function addMessage(message, isUser = false) {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message');
+      messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+      messageDiv.textContent = message;
+      chatMessages.appendChild(messageDiv);
+      
+      // Scroll to the bottom of the chat
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return messageDiv;
+    }
+    
+    // Function to add resource links
+    function addResourceLinks(botMessageDiv, resources) {
+      if (resources && resources.length > 0) {
+        const resourceDiv = document.createElement('div');
+        resourceDiv.classList.add('resource-links');
+        
+        resources.forEach(link => {
+          const linkElement = document.createElement('a');
+          linkElement.href = link;
+          linkElement.target = '_blank';
+          linkElement.textContent = link;
+          resourceDiv.appendChild(linkElement);
+        });
+        
+        botMessageDiv.appendChild(resourceDiv);
+      }
+    }
+    
+    // Function to send a message to the chatbot API
+    async function sendToChatbot(message) {
+      try {
+        const response = await fetch('/api/chatbot', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message }),
+        });
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        
+        const data = await response.json();
+        const botMessageDiv = addMessage(data.response);
+        addResourceLinks(botMessageDiv, data.resources);
+      } catch (error) {
+        console.error('Error:', error);
+        addMessage('Sorry, there was an error processing your request. Please try again.', false);
+      }
+    }
+    
+    // Send message when button is clicked
+    sendButton.addEventListener('click', function() {
+      const message = userMessage.value.trim();
+      if (message) {
+        addMessage(message, true);
+        userMessage.value = '';
+        sendToChatbot(message);
+      }
+    });
+    
+    // Send message when Enter key is pressed
+    userMessage.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        const message = userMessage.value.trim();
+        if (message) {
+          addMessage(message, true);
+          userMessage.value = '';
+          sendToChatbot(message);
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}

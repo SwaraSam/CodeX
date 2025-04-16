@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - LEGALIZE{% endblock %}
+
+{% block additional_head %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #cce0ff, #e6f0ff);
+  }
+  
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .login-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 64, 128, 0.2);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+  }
+  
+  .login-container h2 {
+    text-align: center;
+    color: #004080;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .login-container label {
+    display: block;
+    margin-bottom: 6px;
+    color: #003366;
+    font-weight: bold;
+  }
+  
+  .login-container input,
+  .login-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #99c2ff;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .login-container .btn {
+    width: 100%;
+    padding: 12px 10px;
+    background-color: #0059b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .login-container .btn:hover {
+    background-color: #004080;
+  }
+  
+  .login-links {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .login-links a {
+    color: #0059b3;
+    text-decoration: none;
+  }
+  
+  .login-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .form-error {
+    color: red;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <h2>Sign Up</h2>
+  <form method="POST" action="{{ url_for('signup') }}">
+    {{ form.hidden_tag() }}
+    
+    <div class="form-group">
+      {{ form.name.label }}
+      {{ form.name(class="form-control") }}
+      {% if form.name.errors %}
+        <div class="form-error">
+          {% for error in form.name.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="form-group">
+      {{ form.gender.label }}
+      {{ form.gender(class="form-control") }}
+      {% if form.gender.errors %}
+        <div class="form-error">
+          {% for error in form.gender.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="form-group">
+      {{ form.age.label }}
+      {{ form.age(class="form-control") }}
+      {% if form.age.errors %}
+        <div class="form-error">
+          {% for error in form.age.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="form-group">
+      {{ form.mobile.label }}
+      {{ form.mobile(class="form-control") }}
+      {% if form.mobile.errors %}
+        <div class="form-error">
+          {% for error in form.mobile.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="form-group">
+      {{ form.email.label }}
+      {{ form.email(class="form-control") }}
+      {% if form.email.errors %}
+        <div class="form-error">
+          {% for error in form.email.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="form-group">
+      {{ form.password.label }}
+      {{ form.password(class="form-control") }}
+      {% if form.password.errors %}
+        <div class="form-error">
+          {% for error in form.password.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="form-group">
+      {{ form.confirm_password.label }}
+      {{ form.confirm_password(class="form-control") }}
+      {% if form.confirm_password.errors %}
+        <div class="form-error">
+          {% for error in form.confirm_password.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    
+    {{ form.submit(class="btn") }}
+  </form>
+  <div class="login-links">
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+  </div>
+</div>
+{% endblock %}

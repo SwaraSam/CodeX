@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Server Error - LEGALIZE{% endblock %}
+
+{% block additional_head %}
+<style>
+  .error-container {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .error-code {
+    font-size: 120px;
+    color: #e91e63;
+    margin: 0;
+    font-weight: bold;
+    line-height: 1;
+  }
+  
+  .error-message {
+    font-size: 24px;
+    color: #333;
+    margin: 20px 0;
+  }
+  
+  .error-description {
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .back-button {
+    display: inline-block;
+    background-color: #3949ab;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #303f9f;
+    transform: translateY(-2px);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="error-container">
+  <h1 class="error-code">500</h1>
+  <h2 class="error-message">Server Error</h2>
+  <p class="error-description">We're sorry, but something went wrong on our end. Our team has been notified and we're working to fix the issue.</p>
+  <a href="{{ url_for('index') }}" class="back-button">Back to Home</a>
+</div>
+{% endblock %}

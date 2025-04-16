@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}LEGALIZE - Welcome{% endblock %}
+
+{% block additional_head %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, #d0e7ff, #e0c3fc);
+    background-size: 400% 400%;
+    animation: gradientShift 10s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2c3e50;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .container {
+    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    max-width: 460px;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1a237e;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 1.15rem;
+    color: #37474f;
+    margin-bottom: 35px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .button-group a {
+    display: inline-block;
+    background-color: #1a237e;
+    color: #fff;
+    padding: 14px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .button-group a:hover {
+    background-color: #0d144e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 500px) {
+    .container {
+      padding: 30px 25px;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    .button-group {
+      flex-direction: column;
+    }
+
+    .button-group a {
+      width: 100%;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Welcome to <span style="color: #3949ab;">LEGALIZE</span></h1>
+  <p>Your AI-powered legal assistant for summarizing and highlighting legal documents.</p>
+  <div class="button-group">
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('signup') }}">Sign Up</a>
+  </div>
+</div>
+{% endblock %}
